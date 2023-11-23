@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Música a la Carta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet"/>    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script>
+        function mostrarInfoAdicional() {
+          var infoAdicional = document.getElementById('infoAdicional');
+          infoAdicional.classList.toggle('hidden');
+        }
+      </script>
+
+ </head>
+ <body>
+    <div class="sidebar">
+        <div class="logo">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Logo" style="width: 100px; height: 100px;"/>
+            </a>
+            <h1>Música a la Carta</h1>
+        </div>
+
+        <div class ="navigation">
+            <ul>
+                <li>
+                    <a href="{{ url_for('index') }}">
+                        <span class="fa fa-home"></span>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-book"></span>
+                        <span>Biblioteca</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-headphones"></span>
+                        <span>Playlist</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-music"></span>
+                        <span>Música a la carta</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-envelope"></span>
+                        <span>Contactanos</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+        <div class="container">
+
+            <div class="columna1">
+                <div class="welcome-message">
+                    ¡Hola! Raúl, ¿qué deseas escuchar?
+                </div>
+        
+                <div class="visual">
+                    <a href="#">
+                        <img src="{{ url_for('static', filename='img/visual.jpg') }}" alt="Visual">
+                    </a>
+                    <div class="matrix">
+                        <div style="display: flex; flex-direction: column;">
+                            <a href="#">
+                                <img src="{{ url_for('static', filename='img/playlist/lanzamiento.jpg') }}" alt="Lanzamiento">
+                            </a>
+                            <a href="#">
+                                <img src=".{{ url_for('static', filename='img/playlist/concentracion.jpg') }}" alt="Concentración">
+                            </a>
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <a href="#">
+                                <img src="{{ url_for('static', filename='img/playlist/populares.jpg') }}" alt="Populares">
+                            </a>
+                            <a href="#">
+                                <img src="{{ url_for('static', filename='img/playlist/bailable.jpg') }}" alt="Bailable">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Columna 2 -->
+            <div class="columna2">
+                <div class="v-line"></div>
+            </div>
+        
+            <!-- Columna 3 -->
+            <div class="columna3">
+                <div class="mensaje-app">
+                    ¿Quieres una lista de reproducción acorde a tu estado de ánimo?
+                </div>
+                <button class="boton-si" onclick="mostrarInfoAdicional()">Sí</button>
+                    <div class="hidden info-adicional" id="infoAdicional">
+                        Activa la cámara web o responde la siguiente encuesta
+                        <div class="iconos">
+                            <table>
+                                <tr>
+                                    <td><img class="icono_web" src="{{ url_for('static', filename='img/camara-web.png') }}" alt="Camweb"></td>
+                                    <td><div class="boton-icono-container"><a href="{{ url_for('camweb') }}"class="boton-icono">Camweb</a></div></td>
+                                </tr>
+                                <tr>
+                                    <td><img class="icono_encuesta" src="{{ url_for('static', filename='img/encuesta-icon.png') }}" alt="Encuesta"></td>
+                                    <td><div class="boton-icono-container"><a href="{{ url_for('encuesta') }}" class="boton-icono">Encuesta</a></div></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+ </body>   
+</html>

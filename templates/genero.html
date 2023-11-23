@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Música a la Carta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet"/>    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script src="{{ url_for('static', filename='sentimiento.js') }}"></script>
+
+ </head>
+ <body>
+    <div class="sidebar">
+        <div class="logo">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Logo" style="width: 100px; height: 100px;"/>
+            </a>
+            <h1>Música a la Carta</h1>
+        </div>
+
+        <div class ="navigation">
+            <ul>
+                <li>
+                    <a href="{{ url_for('index') }}">
+                        <span class="fa fa-home"></span>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-book"></span>
+                        <span>Biblioteca</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-headphones"></span>
+                        <span>Playlist</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-music"></span>
+                        <span>Música a la carta</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-envelope"></span>
+                        <span>Contactanos</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <table id="generosTable">
+        <tr>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Pop', this)">Pop</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Clásica', this)">Clásica</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('R&B', this)">R&B</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Dancehall', this)">Dancehall</button></td>
+        </tr>
+        <tr>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Jazz', this)">Jazz</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Country', this)">Country</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Punk', this)">Punk</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Blues', this)">Blues</button></td>
+        </tr>
+        <tr>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Hip-Hop/Rap', this)">Hip-Hop/Rap</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Metal', this)">Metal</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Electrónica', this)">Electrónica</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Gospel', this)">Gospel</button></td>
+        </tr>
+        <tr>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Rock', this)">Rock</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Folk', this)">Folk</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Reggaeton', this)">Reggaeton</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Otro', this)">Otro</button></td>
+        </tr>
+        <tr>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Soul', this)">Soul</button></td>
+            <td><button class="boton_genero" onclick="seleccionarGenero('Indie/Alternativo', this)">Indie/Alternativo</button></td>
+        </tr>
+    </table>
+
+    <p id="mensaje"></p>
+    <button id="generarPlaylist" onclick="generarListaGeneros()" class="boton-defecto"  disabled>Generar Playlist</button>
+
+
+
+ </body>
+</html>

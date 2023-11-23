@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Música a la Carta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet"/>    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script src="static/sentimiento.js"></script>
+
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Logo" style="width: 100px; height: 100px;"/>
+            </a>
+            <h1>Música a la Carta</h1>
+        </div>
+
+        <div class ="navigation">
+            <ul>
+                <li>
+                    <a href="{{ url_for('index') }}">
+                        <span class="fa fa-home"></span>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-book"></span>
+                        <span>Biblioteca</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-headphones"></span>
+                        <span>Playlist</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-music"></span>
+                        <span>Música a la carta</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-envelope"></span>
+                        <span>Contactanos</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="containercw">
+        <!-- Primera columna con la foto -->
+        <div class="columncw">
+            <div class="rowcw">
+                <!--<img id="webcam1" src="" alt="Webcam1">-->
+                <video id="camera" width="400" height="300" autoplay  style = "background-size: cover; background-image: url(' {{ url_for('static', filename='img/Webcam1.jpg')  }}');  "></video>
+               <canvas id="photoCanvas" width="400" height="300" style="display: none;"></canvas>
+                <button id="captureButton" class="boton-defecto" >Tomar Foto</button>
+            </div>
+            <div class="rowcw">
+              
+            </div>
+        </div>
+        
+        <!-- Columna vacía en el centro -->
+        <div class="emptyColumn"></div>
+
+        <!-- Segunda columna con el botón -->
+        <div class="columncw">
+            <div class="rowcw">
+            <img id="capturedPhoto" src="" alt="Captured Photo" style="display: none;">
+            </div>
+            <div class="rowcw">
+                <button class="boton-defecto " id="enviarfoto" style="display: none;" onclick="enviarFoto('capturedPhoto')" >Enviar</button>
+            </div>
+        </div>
+
+        
+        
+        
+        
+        <script>
+            // Access the user's camera
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    // Display the camera stream in a video element
+                    const camera = document.getElementById('camera');
+                    camera.srcObject = stream;
+                })
+                .catch(error => {
+                    console.error('Error accessing the camera:', error);
+                });
+        
+            // Capture photo when the button is clicked
+            const enviarfoto = document.getElementById('enviarfoto');
+            const captureButton = document.getElementById('captureButton');
+            const photoCanvas = document.getElementById('photoCanvas');
+            const capturedPhoto = document.getElementById('capturedPhoto');
+        
+            captureButton.addEventListener('click', () => {
+                // Draw the current frame from the video element onto the canvas
+                const context = photoCanvas.getContext('2d');
+                context.drawImage(camera, 0, 0, photoCanvas.width, photoCanvas.height);
+                
+                // Show the captured photo
+                capturedPhoto.src = photoCanvas.toDataURL('image/png');
+                capturedPhoto.style.display = 'block';
+                enviarfoto.style.display = 'block';
+            });
+        </script>
+
+
+    </div>
+
+
+</body>
+</html>

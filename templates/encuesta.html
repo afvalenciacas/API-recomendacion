@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Música a la Carta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet"/>    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script src="static/sentimiento.js"></script>
+
+ </head>
+ <body>
+    <div class="sidebar">
+        <div class="logo">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Logo" style="width: 100px; height: 100px;"/>
+            </a>
+            <h1>Música a la Carta</h1>
+        </div>
+
+        <div class ="navigation">
+            <ul>
+                <li>
+                    <a href="{{ url_for('index') }}">
+                        <span class="fa fa-home"></span>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-book"></span>
+                        <span>Biblioteca</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-headphones"></span>
+                        <span>Playlist</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-music"></span>
+                        <span>Música a la carta</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="fa fa-envelope"></span>
+                        <span>Contactanos</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <table>
+            <tr>
+                <td><a href="Javascript:void(0);" onclick="seleccionarImagen('amor')"><img id="amor" class="imagen-mood" src="{{ url_for('static', filename='img/mood/amor.jpg') }}" alt="amor"></a></td>
+                <td><a href="Javascript:void(0);" onclick="seleccionarImagen('energia')"><img id="energia" class="imagen-mood" src="{{ url_for('static', filename='img/mood/energia.jpg') }}" alt="energia"></a></td>
+                <td><a href="Javascript:void(0);" onclick="seleccionarImagen('euforia')"><img id="euforia" class="imagen-mood" src="{{ url_for('static', filename='img/mood/euforia.jpg') }}" alt="euforia"></a></td>
+                <td><a href="Javascript:void(0);" onclick="seleccionarImagen('felicidad')"><img id="felicidad" class="imagen-mood" src="{{ url_for('static', filename='img/mood/felicidad.jpg') }}" alt="felicidad"></a></td>
+            </tr>
+            <tr>
+                <td><a href="Javascript:void(0);" onclick="seleccionarImagen('ira')"><img id="ira" class="imagen-mood" src="{{ url_for('static', filename='img/mood/ira.jpg') }}" alt="ira"></a></td>
+                <td><a href="Javascript:void(0);" onclick="seleccionarImagen('melancolia')"><img id="melancolia" class="imagen-mood" src="{{ url_for('static', filename='img/mood/melancolia.jpg') }}" alt="melancolia"></a></td>
+                <td><a href="Javascript:void(0);" onclick="seleccionarImagen('sorpresa')"><img id="sorpresa" class="imagen-mood" src="{{ url_for('static', filename='img/mood/sorpresa.jpg') }}" alt="sorpresa"></a></td>
+                <td><a href="Javascript:void(0);" onclick="seleccionarImagen('tristeza')"><img id="tristeza" class="imagen-mood" src="{{ url_for('static', filename='img/mood/tristeza.jpg') }}" alt="tristeza"></a></td>
+            </tr>
+        </table>
+        
+
+        <button id="confirmaremocion" class="confirmar-boton boton-defecto" onclick="confirmarSeleccion()" disabled>Confirmar Selección</button>
+
+
+ </body>
+</html>

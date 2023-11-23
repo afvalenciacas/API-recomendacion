@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+ <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Música a la Carta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet"/>    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script src="static/sentimiento.js"></script>
+
+</head>
+<body>
+   <div class="sidebar">
+       <div class="logo">
+           <a href="{{ url_for('index') }}">
+               <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Logo" style="width: 100px; height: 100px;"/>
+           </a>
+           <h1>Música a la Carta</h1>
+       </div>
+
+       <div class ="navigation">
+           <ul>
+               <li>
+                   <a href="{{ url_for('index') }}">
+                       <span class="fa fa-home"></span>
+                       <span>Inicio</span>
+                   </a>
+               </li>
+
+               <li>
+                   <a href="#">
+                       <span class="fa fa-book"></span>
+                       <span>Biblioteca</span>
+                   </a>
+               </li>
+
+               <li>
+                   <a href="#">
+                       <span class="fa fa-headphones"></span>
+                       <span>Playlist</span>
+                   </a>
+               </li>
+
+               <li>
+                   <a href="#">
+                       <span class="fa fa-music"></span>
+                       <span>Música a la carta</span>
+                   </a>
+               </li>
+
+               <li>
+                   <a href="#">
+                       <span class="fa fa-envelope"></span>
+                       <span>Contactanos</span>
+                   </a>
+               </li>
+           </ul>
+       </div>
+       <div class="container">
+        <!-- Primera columna con la lista de canciones -->
+        <div class="column">
+            <h2>Canciones</h2>
+            <div class="cuadro-grande" id="playlistholder">
+                Generando Playlist ...
+            </div>
+        </div>
+
+        <!-- Segunda columna con los botones Me Gusta y Dame otra playlist -->
+        <div class="columnpl">
+            <h2>¿Qué tal la playlist?</h2>
+            <button class="boton-defecto" onclick="meGusta()">Me Gusta</button>
+            <button class="boton-defecto" onclick="generarPlaylist()">Dame otra playlist, por favor</button>
+        </div>
+
+        <!-- Tercera columna con el mensaje "Perfecto!, disfruta tu playlist" -->
+        <div class="columnpl" id="mensajeColumna" style="display: none;">
+            <h2>Perfecto!, disfruta tu playlist</h2>
+        </div>
+    </div>
+
+   </div>
+
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM content is loaded!');
+        generarPlaylist();
+        // Your code here
+    });
+</script>
+</body>
+</html>
