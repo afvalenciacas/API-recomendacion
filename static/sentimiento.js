@@ -34,7 +34,7 @@ function confirmarSeleccion() {
   
 function enviarSentimientoAPI(sentimiento) {
     // URL de la REST API donde enviar el sentimiento
-    var urlAPI = 'http://127.0.0.1:5000/api/enviar-sentimiento';
+    var urlAPI = 'http://54.237.169.36:5000/api/enviar-sentimiento';
   
     // Objeto de opciones para la solicitud
     var opciones = {
@@ -88,7 +88,7 @@ function generarListaGeneros() {
 
 function enviarGenerosAPI(generos) {
     // URL de la REST API donde enviar la playlist
-    var urlAPI = 'http://127.0.0.1:5000/api/enviar-generos';
+    var urlAPI = 'http://54.237.169.36:5000/api/enviar-generos';
 
     // Objeto de opciones para la solicitud
     var opciones = {
@@ -142,7 +142,7 @@ function generarPlaylist() {
   document.getElementById('mensajeColumna').style.display = 'none';
 
    // URL de la REST API donde enviar la playlist
-   var urlAPI = 'http://127.0.0.1:5000/api/generar-playlist';
+   var urlAPI = 'http://54.237.169.36:5000/api/generar-playlist';
 
    // Objeto de opciones para la solicitud
    var opciones = {
