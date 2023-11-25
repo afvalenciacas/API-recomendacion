@@ -41,16 +41,17 @@ def custom_recommendation_model(df, generos_usuario, seleccion_usuario, n_compon
     svd = TruncatedSVD(n_components=n_components)
     atributos_latentes = svd.fit_transform(atributos)
 
-    print(f'Recomendaciones Modelo antesmatriz dispersa')
+    print(f'Recomendaciones Modelo antes matriz dispersa')
     # Convertir a matriz dispersa
     atributos_latentes_sparse = csr_matrix(atributos_latentes)
     
     # Calcular similitud del coseno
     similitud = cosine_similarity(atributos_latentes_sparse) if n_components < min(atributos.shape) else cosine_similarity(atributos)
     indices_recomendaciones = similitud.sum(axis=0).argsort()[::-1]
-
+    
+    print(f'Recomendaciones Modelo despues similitud coseno')
     recomendaciones = subset_df.iloc[indices_recomendaciones].head(10)
-    print(f'Recomndaciones Modelo: {recomendaciones.head(10)}')
+    print(f'Recomendaciones Modelo: {recomendaciones.head(10)}')
 
     return recomendaciones
 
