@@ -153,7 +153,8 @@ def generar_playlist():
         print(f" .... Generando Recomendaciones .... ")
         # Obtner Recomendaciones
         df_recomendaciones = custom_recommendation_model(df1, generos, sentimiento, n_components= 5 , scaling_method = "RobustScaler" , top_n = 10)
-
+        print(f" .... Generando Recomendaciones Terminado ")
+        
         #Generar playlist
         df_playlist = df_recomendaciones[["name", "artists"]]
         playlist = "\n".join(df_playlist.apply(lambda row: ' - '.join(row), axis=1))
