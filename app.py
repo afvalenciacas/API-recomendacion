@@ -47,9 +47,11 @@ def custom_recommendation_model(df, generos_usuario, seleccion_usuario, n_compon
     print(f'Recomendaciones Modelo antes similitud del coseno')
     # Calcular similitud del coseno
     similitud = cosine_similarity(atributos_latentes_sparse) if n_components < min(atributos.shape) else cosine_similarity(atributos)
+    print(f'Recomendaciones Modelo despues similitud = ')
     indices_recomendaciones = similitud.sum(axis=0).argsort()[::-1]
-
+    print(f'Recomendaciones Modelo despues indices_recomendaciones ')    
     print(f'Recomendaciones Modelo despues similitud coseno')
+
     recomendaciones = subset_df.iloc[indices_recomendaciones].head(10)
     print(f'Recomendaciones Modelo: {recomendaciones.head(10)}')
 
