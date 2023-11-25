@@ -2,15 +2,14 @@ from flask import Flask, render_template, request, jsonify, g
 from flask_cors import CORS
 import pandas as pd
 import numpy as np
+import json
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.decomposition import TruncatedSVD
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from scipy.sparse import csr_matrix
 
-
-
 df = pd.read_csv("df_spotify.csv", sep='|')
-
+df1 = df.copy()
 
 def custom_recommendation_model(df, generos_usuario, seleccion_usuario, n_components, scaling_method, top_n):
     
@@ -47,11 +46,11 @@ def custom_recommendation_model(df, generos_usuario, seleccion_usuario, n_compon
     # Calcular similitud del coseno
     similitud = cosine_similarity(atributos_latentes_sparse) if n_components < min(atributos.shape) else cosine_similarity(atributos)
     indices_recomendaciones = similitud.sum(axis=0).argsort()[::-1]
-    recomendaciones = subset_df.iloc[indices_recomendaciones][["name" , "artists"]].head(top_n)
-    
-    recomendaciones_str = "\n".join(recomendaciones[["name", "artists"]].head(top_n).apply(lambda row: ' - '.join(row), axis=1))
 
-    return recomendaciones_str
+    recomendaciones = subset_df.iloc[indices_recomendaciones].head(10)
+    #print(f'Recomndaciones Modelo: {recomendaciones.head(10)}')
+
+    return recomendaciones
 
 
 app = Flask(__name__)
@@ -59,10 +58,12 @@ CORS(app)  # Esto permite solicitudes CORS desde cualquier origen
 
 app.config['g_sentimiento'] = ""
 app.config['g_generos'] = []
+app.config['g_canciones_no_gustadas'] = []
 
-#def before_request():
-    #g_sentimiento = ""
-    #g_generos = []
+def before_request():
+    app.config['g_sentimiento'] = ""
+    app.config['g_generos'] = []
+    app.config['g_canciones_no_gustadas'] = []
 
 @app.route('/')
 def index():
@@ -127,7 +128,7 @@ def recibir_generos():
 def generar_playlist():
     try:
         data = request.get_json()
-        # Aqui se hace la llamada del modelo que devuelve una play list segun sentimiento, generos y el contador
+        # Aqui se hace la llamada del modelo que devuelve una play list segun sentimiento, generos
         
         sentimiento = app.config['g_sentimiento']
         generos = app.config['g_generos']
@@ -135,15 +136,41 @@ def generar_playlist():
         print(f"Sentimiento: {sentimiento}")
         print(f"Géneros: {generos}")
 
-        playlist = custom_recommendation_model(df, generos, sentimiento, n_components= 5 , scaling_method = "RobustScaler" , top_n = 10)
+        # Verificar si hay canciones no gustadas antes de aplicar el filtrado
+        v_canciones_no_gustadas = app.config['g_canciones_no_gustadas']
+        #print(f"v_canciones_no_gustadas: {v_canciones_no_gustadas}")
+        #print(f"len v_canciones_no_gustadas: {len(v_canciones_no_gustadas)}")    
+
+        if len(v_canciones_no_gustadas) == 0:
+            df1 = df.copy()
+            #print(f" df1 = df.copy()")
+        else:
+            df1 = df[~df['id'].isin(v_canciones_no_gustadas)]
+            #print(f" Elimino Canciones no Gustadas")
+ 
         #playlist = "<ul><li>nombre_cancion_1 - Almara</li><li>nombre_cancion_2 - Alejandro Sanz</li></ul>"
+        
+        print(f" .... Generando Recomendaciones .... ")
+        # Obtner Recomendaciones
+        df_recomendaciones = custom_recommendation_model(df1, generos, sentimiento, n_components= 5 , scaling_method = "RobustScaler" , top_n = 10)
 
-        print(f'Playlist recibidos: {playlist}')
+        #Generar playlisr 
+        df_playlist = df_recomendaciones[["name", "artists"]]
+        playlist = "\n".join(df_playlist.apply(lambda row: ' - '.join(row), axis=1))
 
+        print(f'Playlist: {playlist}')
+
+        # remover las recomendaciones en caso que al usuario no le gusten
+        canciones_no_gustadas = df_recomendaciones['id'].tolist()
+        
+        #app.config['g_canciones_no_gustadas'] =  canciones_no_gustadas 
+        app.config['g_canciones_no_gustadas'].extend(canciones_no_gustadas)
+
+        #print(f'Canciones no Gustadas: {canciones_no_gustadas}')
         return jsonify({'playlist': f'{playlist}'}), 200
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    
+        
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
