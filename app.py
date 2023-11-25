@@ -11,6 +11,7 @@ df = pd.read_csv("df_spotify.csv", sep='|')
 df1 = df.copy()
 
 def custom_recommendation_model(df, generos_usuario, seleccion_usuario, n_components, scaling_method, top_n):
+    print(f'df de entrada: {df.head(10)}')
     print(f'Recomendaciones Modelo Entrando')
     subset_df = df[(df['genero_principal'].isin(generos_usuario)) & (df['sentimiento'] == seleccion_usuario)]
     if subset_df.shape[0] > 0:
