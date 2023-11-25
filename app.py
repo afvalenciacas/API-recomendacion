@@ -48,7 +48,7 @@ def custom_recommendation_model(df, generos_usuario, seleccion_usuario, n_compon
     indices_recomendaciones = similitud.sum(axis=0).argsort()[::-1]
 
     recomendaciones = subset_df.iloc[indices_recomendaciones].head(10)
-    #print(f'Recomndaciones Modelo: {recomendaciones.head(10)}')
+    print(f'Recomndaciones Modelo: {recomendaciones.head(10)}')
 
     return recomendaciones
 
@@ -154,7 +154,7 @@ def generar_playlist():
         # Obtner Recomendaciones
         df_recomendaciones = custom_recommendation_model(df1, generos, sentimiento, n_components= 5 , scaling_method = "RobustScaler" , top_n = 10)
 
-        #Generar playlisr 
+        #Generar playlist
         df_playlist = df_recomendaciones[["name", "artists"]]
         playlist = "\n".join(df_playlist.apply(lambda row: ' - '.join(row), axis=1))
 
@@ -166,7 +166,7 @@ def generar_playlist():
         #app.config['g_canciones_no_gustadas'] =  canciones_no_gustadas 
         app.config['g_canciones_no_gustadas'].extend(canciones_no_gustadas)
 
-        #print(f'Canciones no Gustadas: {canciones_no_gustadas}')
+        print(f'Canciones no Gustadas: {canciones_no_gustadas}')
         return jsonify({'playlist': f'{playlist}'}), 200
 
     except Exception as e:
