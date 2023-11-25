@@ -12,7 +12,7 @@ df = pd.read_csv("df_spotify.csv", sep='|')
 df1 = df.copy()
 
 def custom_recommendation_model(df, generos_usuario, seleccion_usuario, n_components, scaling_method, top_n):
-    
+    print(f'Recomndaciones Modelo Entrando')
     subset_df = df[(df['genero_principal'].isin(generos_usuario)) & (df['sentimiento'] == seleccion_usuario)]
     if subset_df.shape[0] > 0:
         pass
@@ -60,10 +60,10 @@ app.config['g_sentimiento'] = ""
 app.config['g_generos'] = []
 app.config['g_canciones_no_gustadas'] = []
 
-def before_request():
-    app.config['g_sentimiento'] = ""
-    app.config['g_generos'] = []
-    app.config['g_canciones_no_gustadas'] = []
+#def before_request():
+    #app.config['g_sentimiento'] = ""
+    #app.config['g_generos'] = []
+    #app.config['g_canciones_no_gustadas'] = []
 
 @app.route('/')
 def index():
