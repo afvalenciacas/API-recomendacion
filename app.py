@@ -12,7 +12,7 @@ df = pd.read_csv("df_spotify.csv", sep='|')
 df1 = df.copy()
 
 def custom_recommendation_model(df, generos_usuario, seleccion_usuario, n_components, scaling_method, top_n):
-    print(f'Recomndaciones Modelo Entrando')
+    print(f'Recomendaciones Modelo Entrando')
     subset_df = df[(df['genero_principal'].isin(generos_usuario)) & (df['sentimiento'] == seleccion_usuario)]
     if subset_df.shape[0] > 0:
         pass
@@ -34,12 +34,14 @@ def custom_recommendation_model(df, generos_usuario, seleccion_usuario, n_compon
     elif scaling_method == "RobustScaler":
         scaler = RobustScaler()
         atributos = scaler.fit_transform(atributos)
-    
+            
+    print(f'Recomendaciones Modelo antes modelo')
     # Reducción de dimensionalidad (SVD)
     # n_components = min(n_components, min(atributos.shape) - 1)
     svd = TruncatedSVD(n_components=n_components)
     atributos_latentes = svd.fit_transform(atributos)
-    
+
+    print(f'Recomendaciones Modelo antesmatriz dispersa')
     # Convertir a matriz dispersa
     atributos_latentes_sparse = csr_matrix(atributos_latentes)
     
